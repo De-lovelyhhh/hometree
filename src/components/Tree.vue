@@ -51,7 +51,7 @@ let dataset = {
     ]
   }]
 }
-let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/tree'
+// let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/tree'
 // d3.json(url)
 // console.log(JSON.stringify(data))
 export default {

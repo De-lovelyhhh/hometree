@@ -1,9 +1,9 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
 import VueRouter from 'vue-router'
-import ElementUI from 'element-ui'
+import ElementUI, { Cascader } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import SignPage from './components/SignPage.vue'
 import ProblemFind from './components/ProblemFind.vue'
@@ -12,10 +12,13 @@ import Check from './components/Check.vue'
 import Notice from './components/Notice.vue'
 import Tree from './components/Tree.vue'
 import Personal from './components/Personal.vue'
+import EditInformation from './components/EditInformation.vue'
+import AreaPicker from './components/AreaPicker.vue'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueRouter)
+Vue.use(Cascader)
 
 const routes = [
   {
@@ -52,6 +55,16 @@ const routes = [
     path: '/Personal',
     name: 'Personal',
     component: Personal
+  },
+  {
+    path: '/EditInformation',
+    name: 'EditInformation',
+    component: EditInformation
+  },
+  {
+    path: '/AreaPicker',
+    name: 'AreaPicker',
+    component: AreaPicker
   }
 ]
 

@@ -9,7 +9,7 @@
    */
 // 数据
 import * as d3 from 'd3'
-let dataset = {
+/* let dataset = {
   'name': '王0',
   'children': [{
     'name': '王1',
@@ -50,8 +50,22 @@ let dataset = {
     }
     ]
   }]
+} */
+let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/tree'
+let xhr = new XMLHttpRequest()
+var dataset
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4) {
+    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+      dataset = JSON.parse(xhr.responseText)
+      console.log(dataset)
+    } else {
+      console.log('error')
+    }
+  }
 }
-// let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/tree'
+xhr.open('get', url, true)
+xhr.send()
 // d3.json(url)
 // console.log(JSON.stringify(data))
 export default {
@@ -61,13 +75,14 @@ export default {
       id: '',
       zoom: null,
       index: 0,
-      duration: 750,
+      duration: 950,
       root: null,
       nodes: [],
       links: [],
       dTreeData: null,
       transform: null,
-      margin: { top: 20, right: 90, bottom: 30, left: 90 }
+      margin: { top: 20, right: 90, bottom: 30, left: 90 },
+      value: null
     }
   },
   methods: {

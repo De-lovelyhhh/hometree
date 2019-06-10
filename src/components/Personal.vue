@@ -62,7 +62,9 @@
           <MyMoment/>
         </div>
         <div v-if="activeName === 'second'"></div>
-        <div v-if="activeName === 'third'"></div>
+        <div v-if="activeName === 'third'">
+          <EditInformation/>
+        </div>
       </el-main>
       <!--页脚-->
       <el-footer height="90px" style="background-color: #eff4fa;">
@@ -81,9 +83,10 @@
 
 <script>
 import MyMoment from './MyMoment.vue'
+import EditInformation from './EditInformation.vue'
 export default {
   name: 'Personal',
-  components: {MyMoment},
+  components: {MyMoment, EditInformation},
   data () {
     return {
       activeName: 'first',

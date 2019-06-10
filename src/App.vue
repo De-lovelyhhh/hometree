@@ -21,10 +21,12 @@ import Check from './components/Check.vue'
 import Notice from './components/Notice.vue'
 import Tree from './components/Tree.vue'
 import Personal from './components/Personal.vue'
+import EditInformation from './components/EditInformation.vue'
+import AreaPicker from './components/AreaPicker.vue'
 export default {
   name: 'App',
   components: {
-    SignPage, ProblemFind, AfterLogin, Check, Notice, Tree, Personal
+    SignPage, ProblemFind, AfterLogin, Check, Notice, Tree, Personal, EditInformation, AreaPicker
   },
   computed: {
     username () {

@@ -48,9 +48,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'Changeinfo'
-  }
+export default {
+  name: 'Changeinfo'
+}
 </script>
 
 <style scoped>

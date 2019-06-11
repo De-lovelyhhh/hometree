@@ -5,8 +5,7 @@
       <el-submenu index="2" style="float:right">
         <template slot="title" >语言</template>
         <el-menu-item index="2-1">简体中文</el-menu-item>
-        <el-menu-item index="2-2">繁体中文</el-menu-item>
-        <el-menu-item index="2-3">English</el-menu-item>
+        <el-menu-item index="2-2">还是中文</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>

@@ -1,8 +1,9 @@
 <template>
-    <div>
-      <el-header style="background-color: #eff4fa;">
-        <TopTab/>
-      </el-header>
+  <div>
+    <el-header style="background-color: #eff4fa;">
+      <TopTab/>
+    </el-header>
+    <div class="tapbar">
       <el-row class="tac">
         <el-col :span="12">
           <el-menu
@@ -12,8 +13,8 @@
             @close="handleClose"
           >
             <el-menu-item index="1">
-                <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>
+              <i class="el-icon-location"></i>
+              <span slot="title">导航一</span>
             </el-menu-item>
             <el-menu-item index="2">
               <i class="el-icon-menu"></i>
@@ -31,12 +32,15 @@
         </el-col>
       </el-row>
     </div>
+    <Tree />
+  </div>
 </template>
 
 <script>
 import TopTab from './TopTab.vue'
+import Tree from './Tree.vue'
 export default {
-  components: {TopTab},
+  components: {TopTab, Tree},
   name: 'AfterLogin',
   methods: {
     handleOpen (key, keyPath) {
@@ -58,5 +62,9 @@ export default {
   .tac{
     float:left;
     top:10%;
+  }
+  .tapbar{
+    display: inline;
+    left: 2%;
   }
 </style>

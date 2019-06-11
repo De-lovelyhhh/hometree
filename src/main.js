@@ -14,6 +14,8 @@ import Tree from './components/Tree.vue'
 import Personal from './components/Personal.vue'
 import EditInformation from './components/EditInformation.vue'
 import AreaPicker from './components/AreaPicker.vue'
+import Axios from 'axios'
+Vue.prototype.$axios = Axios
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)

@@ -9,49 +9,8 @@
    */
 // 数据
 import * as d3 from 'd3'
-/* let dataset = {
-  'name': '王0',
-  'children': [{
-    'name': '王1',
-    'children': [{
-      'name': '王2',
-      'children': [{
-        'name': '王3',
-        'children': [{
-          'name': '王4'
-        }]
-      },
-      {
-        'name': '王5',
-        'children': [{
-          'name': '王6',
-          'children': [{
-            'name': '王11'
-          },
-          {
-            'name': '王12'
-          }
-          ]
-        }]
-      },
-      {
-        'name': '王7',
-        'children': [{
-          'name': '王8'
-        }]
-      }
-      ]
-    },
-    {
-      'name': '王9',
-      'children': [{
-        'name': '王10'
-      }]
-    }
-    ]
-  }]
-} */
-let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/tree'
+
+let url = 'localhost:7002/api/getTree'
 let xhr = new XMLHttpRequest()
 var dataset
 xhr.onreadystatechange = function () {
@@ -64,12 +23,12 @@ xhr.onreadystatechange = function () {
     }
   }
 }
-xhr.open('get', url, true)
+xhr.open('get', url, false)
 xhr.send()
 // d3.json(url)
 // console.log(JSON.stringify(data))
 export default {
-  name: 'Scale',
+  name: 'Tree',
   data () {
     return {
       id: '',
@@ -123,6 +82,10 @@ export default {
       )
     },
 
+    name (d) {
+
+    },
+
     diagonal (s, d) {
       return `M ${s.y} ${s.x}
                     C ${(s.y + d.y) / 2} ${s.x},
@@ -160,15 +123,16 @@ export default {
         // Enter any new sources at the parent's previous position.
       let nodeEnter = node.enter().append('g')
         .attr('class', 'node')
-        .on('click', this.clickNode)
         .attr('transform', d => {
           return 'translate(' + source.y0 + ',' + source.x0 + ')'
         })
       nodeEnter.append('circle')
         .attr('r', 10)
+        .on('click', this.clickNode)
         .style('fill', function (d) { return d.children || d._children ? 'lightsteelblue' : '#fff' })
 
       nodeEnter.append('text')
+        .on('name', this.name)
         .attr('x', function (d) { return d.children || d._children ? -15 : 15 })
         .attr('dy', '.35em')
         .attr('text-anchor', function (d) { return d.children || d._children ? 'end' : 'start' })
@@ -251,7 +215,7 @@ export default {
   },
   mounted () {
     // 创建svg画布
-    this.width = document.getElementById(this.id).clientWidth
+    this.width = document.getElementById(this.id).clientWidth * 0.87
     this.height = document.getElementById(this.id).clientHeight
     const svg = d3.select(this.$el).select('svg.d3-tree')
       .attr('width', this.width)

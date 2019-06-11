@@ -6,7 +6,7 @@
       </div>
       <div class="signInfo">
         <p class="title">欢迎注册！！</p>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-form :model="ruleForm" :rules="rules" method="post" ref="ruleForm" label-width="100px" class="demo-ruleForm" id="formid">
           <el-form-item label="姓名" prop="name" class="interval" style="display:inline-block;height:50px;width:100%">
             <el-input v-model="ruleForm.name" class="inputLeft"></el-input>
           </el-form-item>
@@ -28,17 +28,20 @@
           <el-form-item label="身份证号" prop="idNumber" class="interval up">
             <el-input v-model="ruleForm.idNumber" class="inputLeft"></el-input>
           </el-form-item>
-            <el-form-item label="审核员姓名" prop="checkName" class="interval up">
-              <el-input v-model="ruleForm.checkName" class="inputLeft"></el-input>
-            </el-form-item>
-            <el-form-item label="与审核员关系" prop="relation" class="top interval up">
-              <el-input v-model="ruleForm.relation" class="inputLeft"></el-input>
-            </el-form-item>
             <el-form-item label="审核员账号" prop="checkNumber" class="top interval up">
               <el-input v-model="ruleForm.checkNumber" class="inputLeft"></el-input>
             </el-form-item>
+          <el-form-item label="与审核员的关系" prop="relation">
+            <el-radio-group v-model="ruleForm.relation">
+              <el-radio label="1">父子/母子</el-radio>
+              <el-radio label="2">兄弟姐妹</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <!--<el-form-item label="与审核员关系" prop="relation" class="top interval up">
+            <el-input v-model="ruleForm.relation" class="inputLeft"></el-input>
+          </el-form-item>-->
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')" style="width: 100%">立即注册</el-button>
+            <el-button type="primary" @click="sub()" style="width: 100%">立即注册</el-button>
           </el-form-item>
           <el-form-item>
             <el-button @click="resetForm('ruleForm')" style="width: 100%">重置</el-button>
@@ -51,6 +54,7 @@
 <script>
 
 import TopTab from './TopTab.vue'
+import Axios from 'axios'
 
 export default {
   name: 'sign_page',
@@ -67,7 +71,7 @@ export default {
         idNumber: '',
         checkName: '',
         checkNumber: '',
-        relation: '',
+        relation: 1,
         delivery: false,
         type: [],
         resource: '',
@@ -96,9 +100,6 @@ export default {
         idNumber: [
           { required: true, message: '请输入身份证号码', trigger: 'blur' }
         ],
-        checkName: [
-          { required: true, message: '请输入审核人的名字', trigger: 'blur' }
-        ],
         checkNumber: [
           { required: true, message: '请输入审核人的账号', trigger: 'blur' }
         ],
@@ -109,6 +110,32 @@ export default {
     }
   },
   methods: {
+    sub: function () {
+      Axios({
+        url: 'localhost:7002/api/register',
+        method: 'post',
+        data: {
+          user_id: this.ruleForm.number,
+          password: this.ruleForm.password,
+          name: this.ruleForm.name,
+          secure_q: this.ruleForm.problem,
+          secure_a: this.ruleForm.answer,
+          id_card: this.ruleForm.idNumber,
+          verify_user_id: this.ruleForm.checkNumber,
+          verify_user_relation: this.ruleForm.relation
+        },
+        transformRequest: [function (data) {
+          let ret = ''
+          for (let it in data) {
+            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+          }
+          return ret
+        }],
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

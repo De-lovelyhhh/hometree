@@ -35,13 +35,11 @@
             <el-radio-group v-model="ruleForm.relation">
               <el-radio label="1">父子/母子</el-radio>
               <el-radio label="2">兄弟姐妹</el-radio>
+              <el-radio label="3">夫妻</el-radio>
             </el-radio-group>
           </el-form-item>
-          <!--<el-form-item label="与审核员关系" prop="relation" class="top interval up">
-            <el-input v-model="ruleForm.relation" class="inputLeft"></el-input>
-          </el-form-item>-->
           <el-form-item>
-            <el-button type="primary" @click="sub()" style="width: 100%">立即注册</el-button>
+            <el-button type="primary" @click="sub" style="width: 100%">立即注册</el-button>
           </el-form-item>
           <el-form-item>
             <el-button @click="resetForm('ruleForm')" style="width: 100%">重置</el-button>
@@ -54,7 +52,6 @@
 <script>
 
 import TopTab from './TopTab.vue'
-import Axios from 'axios'
 
 export default {
   name: 'sign_page',
@@ -71,7 +68,7 @@ export default {
         idNumber: '',
         checkName: '',
         checkNumber: '',
-        relation: 1,
+        relation: '1',
         delivery: false,
         type: [],
         resource: '',
@@ -111,30 +108,25 @@ export default {
   },
   methods: {
     sub: function () {
-      Axios({
-        url: 'localhost:7002/api/register',
-        method: 'post',
-        data: {
-          user_id: this.ruleForm.number,
-          password: this.ruleForm.password,
-          name: this.ruleForm.name,
-          secure_q: this.ruleForm.problem,
-          secure_a: this.ruleForm.answer,
-          id_card: this.ruleForm.idNumber,
-          verify_user_id: this.ruleForm.checkNumber,
-          verify_user_relation: this.ruleForm.relation
-        },
-        transformRequest: [function (data) {
-          let ret = ''
-          for (let it in data) {
-            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-          }
-          return ret
-        }],
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
+      let that = this
+      this.$ajax.post(
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/register',
+        this.$qs.stringify({
+          user_id: that.ruleForm.number,
+          password: that.ruleForm.password,
+          name: that.ruleForm.name,
+          secure_q: that.ruleForm.problem,
+          secure_a: that.ruleForm.answer,
+          id_card: that.ruleForm.idNumber,
+          verify_user_id: that.ruleForm.checkNumber,
+          verify_user_relation: that.ruleForm.relation
+        }))
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {

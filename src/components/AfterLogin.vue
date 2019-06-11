@@ -14,19 +14,19 @@
           >
             <el-menu-item index="1">
               <i class="el-icon-location"></i>
-              <span slot="title">导航一</span>
+              <span slot="title"><router-link to="/Check">审核页面</router-link></span>
             </el-menu-item>
             <el-menu-item index="2">
               <i class="el-icon-menu"></i>
-              <span slot="title">导航二</span>
+              <span slot="title"><router-link to="/Tree">树</router-link></span>
             </el-menu-item>
             <el-menu-item index="3">
               <i class="el-icon-document"></i>
-              <span slot="title">导航三</span>
+              <span slot="title"><router-link to="/Personal">个人页面</router-link></span>
             </el-menu-item>
             <el-menu-item index="4">
               <i class="el-icon-setting"></i>
-              <span slot="title">导航四</span>
+              <span slot="title"><router-link to="/ProblemFind">修改密码</router-link></span>
             </el-menu-item>
           </el-menu>
         </el-col>
@@ -39,8 +39,11 @@
 <script>
 import TopTab from './TopTab.vue'
 import Tree from './Tree.vue'
+import Check from './Check.vue'
+import Personal from './Personal.vue'
+import ProblemFind from './ProblemFind.vue'
 export default {
-  components: {TopTab, Tree},
+  components: {TopTab, Tree, Check, Personal, ProblemFind},
   name: 'AfterLogin',
   methods: {
     handleOpen (key, keyPath) {

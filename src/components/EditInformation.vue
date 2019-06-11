@@ -19,7 +19,7 @@
     <el-radio v-model="ruleForm.sex" label="male" >男</el-radio>
   </el-form-item>
   <el-form-item label="出生地" prop="region" >
-    <AreaPicker style="width: fit-content"/>
+    <!--<AreaPicker style="width: fit-content"/>-->
   </el-form-item>
   <el-form-item label="出生日期">
     <el-col :span="5">

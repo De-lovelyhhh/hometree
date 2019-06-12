@@ -110,7 +110,7 @@ export default {
     sub: function () {
       let that = this
       this.$ajax.post(
-        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/register',
+        'http://47.106.250.33:7002/api/register',
         this.$qs.stringify({
           user_id: that.ruleForm.number,
           password: that.ruleForm.password,

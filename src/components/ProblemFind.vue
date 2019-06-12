@@ -1,6 +1,40 @@
 <template>
     <div>
       <TopTab/>
+      <div class="tapbar">
+        <el-row class="tac">
+          <el-col :span="12" style="width: 100%">
+            <el-menu
+              default-active="2"
+              class="el-menu-vertical-demo left out"
+              @open="handleOpen"
+              @close="handleClose"
+            >
+              <el-menu-item index="1">
+                <i class="el-icon-location"></i>
+                <span slot="title"><router-link to="/Check">审核页面</router-link></span>
+              </el-menu-item>
+              <el-menu-item index="2">
+                <i class="el-icon-menu"></i>
+                <span slot="title"><router-link to="/AfterLogin">树</router-link></span>
+              </el-menu-item>
+              <el-menu-item index="3">
+                <i class="el-icon-document"></i>
+                <span slot="title"><router-link to="/Personal">个人页面</router-link></span>
+              </el-menu-item>
+              <el-menu-item index="4">
+                <i class="el-icon-setting"></i>
+                <span slot="title"><router-link to="/ProblemFind">修改密码</router-link></span>
+              </el-menu-item>
+              <el-menu-item index="5">
+                <i class="el-icon-location"></i>
+                <span slot="title"><router-link to="/Notice">公告墙</router-link></span>
+              </el-menu-item>
+            </el-menu>
+            <router-view></router-view>
+          </el-col>
+        </el-row>
+      </div>
       <div v-if="moveon===0">
         <el-steps :active="0" align-center class="top">
           <el-step title="选择找回密码的方式"></el-step>
@@ -8,27 +42,8 @@
           <el-step title="修改密码"></el-step>
         </el-steps>
         <el-row>
-          <el-button type="primary" round class="button" @click="problem">密保问题</el-button>
-        </el-row>
-        <el-row>
           <el-button type="primary" round class="button" @click="idNumber">身份证</el-button>
         </el-row>
-      </div>
-      <div v-else-if="choose===1&&moveon===1">
-        <el-steps :active="1" align-center class="top">
-          <el-step title="选择找回密码的方式"></el-step>
-          <el-step title="通过密保问题找回"></el-step>
-          <el-step title="修改密码"></el-step>
-        </el-steps>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item label="谁最好看" prop="answer" class="width">
-            <el-input v-model="ruleForm.answer"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
-          </el-form-item>
-        </el-form>
       </div>
       <div v-else-if="choose===2&&moveon===1">
         <el-steps :active="1" align-center class="top">
@@ -71,9 +86,13 @@
 <script>
 
 import TopTab from './TopTab.vue'
-
+import Check from './Check.vue'
+import Personal from './Personal.vue'
+import ProblemFind from './ProblemFind.vue'
+import AfterLogin from './AfterLogin.vue'
+import Notice from './Notice.vue'
 export default {
-  components: {TopTab},
+  components: {TopTab, Check, Personal, ProblemFind, AfterLogin, Notice},
   name: 'ProblemFind',
   data () {
     var validatePass = (rule, value, callback) => {
@@ -172,4 +191,20 @@ export default {
     margin-top:30px;
     margin-bottom: 20px;
   }
+.left{
+  width: 150px;
+  height: 100%;
+  float: left;
+  color: #666666;
+  background-color: #eeeeee;
+}
+.tac{
+  float:left;
+  top:10%;
+  width: 10%;
+}
+.tapbar{
+  display: inline;
+  left: 2%;
+}
 </style>

@@ -14,10 +14,15 @@ import Tree from './components/Tree.vue'
 import Personal from './components/Personal.vue'
 import EditInformation from './components/EditInformation.vue'
 import AreaPicker from './components/AreaPicker.vue'
+import Login from './components/Login.vue'
+import Administrator from './components/Administrator'
+import Delete from './components/Delete'
+import AdministratorNew from './components/Administrator_New.vue'
 import axios from 'axios'
 import qs from 'qs'
 Vue.prototype.$ajax = axios
 Vue.prototype.$qs = qs
+Vue.prototype.$router = VueRouter
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -69,6 +74,26 @@ const routes = [
     path: '/AreaPicker',
     name: 'AreaPicker',
     component: AreaPicker
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/Delete',
+    name: 'Delete',
+    component: Delete
+  },
+  {
+    path: '/Administrator',
+    name: 'Administrator',
+    component: Administrator
+  },
+  {
+    path: '/Administrator_New',
+    name: 'Administrator_New',
+    component: AdministratorNew
   }
 ]
 

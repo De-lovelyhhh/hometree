@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <div v-if="existCookie.indexOf('skey')===-1">
+    <router-link to="/Administrator">管理员</router-link>
+    <router-view></router-view>
+    <!--<div v-if="existCookie.indexOf('skey')===-1">
       <SignPage />
     </div>
     <div v-else>
       <AfterLogin />
     </div>
-    <!--<p>
+    <p>
       <router-link to="/SignPage">注册界面</router-link>
       <router-link to="/ProblemFind">修改密码</router-link>
       <router-link to="/AfterLogin">登陆后</router-link>
@@ -14,8 +16,8 @@
       <router-link to="/Notice">公告墙</router-link>
       <router-link to="/Tree">树</router-link>
       <router-link to="/Personal">个人页面</router-link>
-    </p>-->
-    <router-view></router-view>
+    </p>
+    <router-view></router-view>-->
   </div>
 </template>
 
@@ -29,8 +31,19 @@ import Tree from './components/Tree.vue'
 import Personal from './components/Personal.vue'
 import EditInformation from './components/EditInformation.vue'
 import AreaPicker from './components/AreaPicker.vue'
-let exist = document.cookie
-console.log(exist)
+import Login from './components/Login.vue'
+import Delete from './components/Delete.vue'
+import Administrator from './components/Administrator.vue'
+// import Administrator_New from './components/Administrator_New.vue'
+
+/* window.onload = function () {
+  let exist = document.cookie
+  if (exist.indexOf('skey') === -1) {
+    router.push({path: '/SignPage'})
+  } else {
+    router.push({path: '/AfterLogin'})
+  }
+} */
 export default {
   name: 'App',
   data () {
@@ -39,7 +52,7 @@ export default {
     }
   },
   components: {
-    SignPage, ProblemFind, AfterLogin, Check, Notice, Tree, Personal, EditInformation, AreaPicker
+    SignPage, ProblemFind, AfterLogin, Check, Notice, Tree, Personal, EditInformation, AreaPicker, Administrator, Delete, Login
   },
   computed: {
     username () {
@@ -51,6 +64,9 @@ export default {
       window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/')
+    },
+    to () {
+      this.$router.push('/SignPage')
     },
     handleClick (tab, event) {
       console.log(tab, event)
@@ -68,6 +84,17 @@ export default {
         }
       }
       return ''
+    }
+  },
+  mounted () {
+    let that = this
+    window.onload = function () {
+      let exist = document.cookie
+      if (exist.indexOf('skey') === -1) {
+        that.$router.push('/SignPage')
+      } else {
+        that.$router.push('/AfterLogin')
+      }
     }
   }
 }

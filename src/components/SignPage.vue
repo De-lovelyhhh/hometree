@@ -44,6 +44,9 @@
           <el-form-item>
             <el-button @click="resetForm('ruleForm')" style="width: 100%">重置</el-button>
           </el-form-item>
+          <el-form-item>
+            <router-link to="/Login">已有密码？去登录</router-link>
+          </el-form-item>
         </el-form>
       </div>
     </div>
@@ -52,10 +55,11 @@
 <script>
 
 import TopTab from './TopTab.vue'
+import Login from './Login.vue'
 
 export default {
   name: 'sign_page',
-  components: {TopTab},
+  components: {TopTab, Login},
   data () {
     return {
       ruleForm: {
@@ -110,7 +114,7 @@ export default {
     sub: function () {
       let that = this
       this.$ajax.post(
-        'http://47.106.250.33:7002/api/register',
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/register',
         this.$qs.stringify({
           user_id: that.ruleForm.number,
           password: that.ruleForm.password,
@@ -123,6 +127,9 @@ export default {
         }))
         .then(function (response) {
           console.log(response)
+          if (response.data.code === 0) {
+            that.$router.push('/AfterLogin')
+          }
         })
         .catch(function (error) {
           console.log(error)

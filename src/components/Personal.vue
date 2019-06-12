@@ -1,24 +1,5 @@
 <template>
     <div id="personal">
-      <!--上面导航栏-->
-      <el-header style="background-color: #eff4fa;">
-        <div v-if="massage">
-          <el-button type="text" @load="open"></el-button>
-        </div>
-        <div>
-          <el-menu :default-active="activeIndex" class="el-menu-demo"  mode="horizontal" @select="handleSelect" style="background-color:#eff4fa;border-bottom: 0;">
-            <el-menu-item index="1" style="float:right">返回首页</el-menu-item>
-            <el-menu-item index="2" style="float:right">意见反馈</el-menu-item>
-            <el-submenu index="3" style="float:right">
-              <template slot="title" >语言</template>
-              <el-menu-item index="2-1">简体中文</el-menu-item>
-              <el-menu-item index="2-2">繁体中文</el-menu-item>
-              <el-menu-item index="2-3">English</el-menu-item>
-            </el-submenu>
-            <el-menu-item index="4" style="float:left"><img src="https://dummyimage.com/130x50/000/fff" alt="aaa"></el-menu-item>
-          </el-menu>
-        </div>
-      </el-header>
       <!--主模块-->
       <el-main style="margin-top:15px;">
         <!--名片-->

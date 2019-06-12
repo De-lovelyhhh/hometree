@@ -16,7 +16,8 @@ var dataset
 xhr.onreadystatechange = function () {
   if (xhr.readyState === 4) {
     if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-      dataset = JSON.parse(xhr.responseText)
+      let data = JSON.parse(xhr.responseText)
+      dataset = data[0]
       console.log(dataset)
     } else {
       console.log('error')
@@ -216,7 +217,7 @@ export default {
   mounted () {
     // 创建svg画布
     this.width = document.getElementById(this.id).clientWidth * 0.87
-    this.height = document.getElementById(this.id).clientHeight
+    this.height = document.getElementById(this.id).clientHeight * 0.65
     const svg = d3.select(this.$el).select('svg.d3-tree')
       .attr('width', this.width)
       .attr('height', this.height)

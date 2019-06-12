@@ -1,64 +1,68 @@
 <template>
   <div>
-    <el-row :gutter="20">
-      <el-col :span="6" :offset="4">
-        <div class="info_edit">
-          <el-row>
-            <el-col :span="6" :offset="1">
-              <el-progress type="circle" :percentage="25"></el-progress>
-            </el-col>
-            <el-col :span="3"><div class="grid-content bg-white"></div></el-col>
-            <el-col :span="12" style="margin-top:1%">
-              个人资料完成度<span class="percent">25%</span>
-              <div style="margin-top: 15px"><el-button type="primary" icon="el-icon-edit" size="small" style="margin-right: 10px"></el-button>去编辑个人信息</div>
-            </el-col>
-          </el-row>
-        </div>
-        <div class="photos">
-          <div class="photos-header">
-            相册
-          </div>
-          <div class="separate"></div>
-          <div style="margin: 0 5px;">
-            <div class="photos-pre">
-              <img src="https://dummyimage.com/344x500/054/fff" alt="" style="width: 100%;height: 100%;">
+        <div class="log" style="margin: 0 auto; width: 630px" >
+          <div style="overflow:scroll; background-color: white; height: 800px ">
+            <div class="family-forum" >
+              <div class="post-text">
+                <el-input
+                  type="textarea"
+                  autosize
+                  placeholder="发布信息~~~"
+                  v-model="textarea1">
+                </el-input>
+                <el-button round>发布</el-button>
+              </div>
+              <div class="passages-container" >
+                <div class="passage-group" >
+                  <div class="left-forum" >
+                    <img class="user-img"  src="../assets/photo.jpg">
+                  </div>
+                  <div class="right-forum" >
+                    <div class="user-and-delete" >
+                      <a class="username" href="/">小文</a>
+                      <el-button type="text">删除</el-button>
+                    </div>
+                    <div class="release-time">2019-06-01  12:00:00</div>
+                    <div class="forum-content" >
+                      没钱旅游！
+                      没钱旅游！
+                      没钱旅游！
+                    </div>
+                  </div>
+                </div>
+                <div class="comments-group" >
+                  <div class="comments-detail">
+                    <a class="reviewer-name" href="/" >小明</a>
+                    <div class="comments-content" >：你说什么？我看不见？</div>
+                  </div>
+                  <div class="comment-box" >
+                    <el-input
+                      type="textarea"
+                      autosize
+                      placeholder="发表评论~~~"
+                      v-model="textarea1">
+                    </el-input>
+                    <button class="send-btn">发送</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="separate"></div>
-          <div class="photos-seemore">
-            <a href="#">查看更多 ></a>
-          </div>
         </div>
-      </el-col>
-      <el-col :span="10" >
-        <div class="log" >
-          <div style="background-color: white">
-            <div>
-              <img src="../assets/photo.jpg" class="photo">
-              <strong class="name">jiahan</strong>
-              <p class="peragrph">aaa天哪树怎么画树怎么画树怎么画啊！！！！！！！！</p>
-            </div>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="10" >
-        <div class="log" >
-          <div style="background-color: white">
-            <div>
-              <img src="../assets/photo.jpg" class="photo">
-              <strong class="name">jiahan</strong>
-              <p class="peragrph">aaa天哪树怎么画树怎么画树怎么画啊！！！！！！！！</p>
-            </div>
-          </div>
-        </div>
-      </el-col>
-    </el-row>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'MyMoment'
+  name: 'MyMoment',
+  data () {
+    return {
+      textarea1: '',
+      textarea2: '',
+      activeIndex: '1',
+      activeIndex2: '1'
+    }
+  }
 }
 </script>
 
@@ -69,23 +73,6 @@ export default {
     padding: 10px;
     margin-bottom: 10px;
   }
-  .photo{
-    width: 50px;
-    height: 50px;
-    float: left;
-    margin: 5px;
-  }
-  .name{
-    font-size: 15px;
-    margin-top: 15px;
-  }
-  .peragrph{
-    margin-bottom: 10px;
-  }
-  .photos-seemore{
-    text-align: center;
-    padding: 10px;
-  }
   .photos-seemore a{
     text-decoration-line: none;
     color: black;
@@ -94,33 +81,6 @@ export default {
   .photos-seemore a:hover{
     color: rgb(253, 152, 0)
   }
-  .info_edit {
-    padding: 10px 0;
-    background-color: white;
-    border-radius: 5px;
-  }
-  .photos{
-    margin:10px 0;
-    background-color: white;
-    border-radius: 5px;
-  }
-  .photos-header{
-    padding-top:10px;
-    margin-left: 10px;
-    font-weight: 700;
-
-  }
-  .info_edit .percent {
-    color: rgb(0, 174, 255);
-    font-size: 30px;
-  }
-  div.avatar{
-    padding-top:35px;
-    margin: 0 auto;
-    width: 100px;
-    height: 100px;
-  }
-
   div.avatar *{
     width: 100px;
     height: 100px;
@@ -128,26 +88,12 @@ export default {
     padding: 0 !important;
     margin: 0 !important;
   }
-
   .profile *{
     color: white;
     text-align: center;
   }
-  .separate{
-    height: 1px;
-    margin: 5px 0;
-    border-top: 1px solid #ddd;
-    text-align: center;
-  }
   body {
     margin:0px;
-  }
-  .bg-white {
-    background: white;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
   }
   .el-carousel__item h3 {
     color: #475669;
@@ -155,5 +101,48 @@ export default {
     opacity: 0.75;
     line-height: 300px;
     margin: 0;
+  }
+  .family-forum{
+    margin: 5px;
+    width: auto;
+  }
+  .post-text{
+    padding: 1px;
+    border:3px solid rgba(245, 245, 220, 0.05);
+  }
+  .passages-container{
+    margin-top: 15px;
+  }
+  .passage-group {
+    margin: 1px;
+    border:2px solid chartreuse;
+    display: flex;
+  }
+  .left-forum{
+    width: 40px;
+  }
+  .user-img{
+    border:solid;
+    weight:35px;
+    height:35px;
+    border-radius: 50%;
+  }
+  .release-time{
+    font-size: 12px;
+  }
+  .comments-group{
+    margin:0 auto;
+    width: 80%;
+    background-color: #f5f5dc;
+  }
+  .comments-detail{
+    margin-top: 1px;
+    display: flex;
+  }
+  .comment-box{
+    border:1px solid #eeeeee;
+    display: flex;
+  }
+  .send-btn{
   }
 </style>

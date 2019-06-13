@@ -98,7 +98,7 @@ export default {
       console.log(key, keyPath)
     },
     pass () {
-      let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/reviewConfirm'
+      let url = 'http://47.106.250.33:7002/api/reviewConfirm'
       let xhr = new XMLHttpRequest()
       let data
       /* let data, relation

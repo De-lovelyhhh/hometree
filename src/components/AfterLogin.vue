@@ -51,7 +51,7 @@ import ProblemFind from './ProblemFind.vue'
 import Notice from './Notice.vue'
 import NoticeBar from './NoticeBar.vue'
 window.onload = function () {
-  let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/getReview'
+  let url = 'http://47.106.250.33:7002/api/getReview'
   let xhr = new XMLHttpRequest()
   var data
   xhr.onreadystatechange = function () {

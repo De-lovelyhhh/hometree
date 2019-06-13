@@ -48,7 +48,8 @@ export default {
   name: 'App',
   data () {
     return {
-      existCookie: document.cookie
+      existCookie: document.cookie,
+      nodata: {}
     }
   },
   components: {
@@ -90,7 +91,7 @@ export default {
     let that = this
     window.onload = function () {
       let exist = document.cookie
-      if (exist.indexOf('skey') === -1) {
+      if (exist.indexOf('skey') !== -1) {
         that.$router.push('/SignPage')
       } else {
         that.$router.push('/AfterLogin')

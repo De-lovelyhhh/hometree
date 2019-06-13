@@ -45,17 +45,12 @@
               <div>
                 <div style="margin:15px 0">
                   <el-form label-width="70px" style="padding-top: 30px">
-                    <el-form-item label="账号">
-                      <el-input v-model="id" style="width: 85%" readonly="readonly"></el-input>
-                    </el-form-item>
-                    <el-form-item label="二者关系">
-                      <el-input v-model="relationship" style="width: 85%" readonly="readonly"></el-input>
+                    <show :id="id" @showinfo="getCheck" :relation="relationship"/>
+                    <el-form-item>
+                      <el-button type="primary" style="width: 70%; margin-top:5%; margin-left:-30%" @click="pass">通过</el-button>
                     </el-form-item>
                     <el-form-item>
-                      <el-button type="primary" style="width: 70%; margin-top:5%; margin-left:-30%">通过</el-button>
-                    </el-form-item>
-                    <el-form-item>
-                      <el-button type="primary" style="width: 70%; margin-top: 5%; margin-left:-30%">不通过</el-button>
+                      <el-button type="primary" style="width: 70%; margin-top: 5%; margin-left:-30%" >不通过</el-button>
                     </el-form-item>
                   </el-form>
 
@@ -82,14 +77,17 @@ import Check from './Check.vue'
 import Personal from './Personal.vue'
 import ProblemFind from './ProblemFind.vue'
 import Notice from './Notice.vue'
+import show from './show.vue'
 // import Vue from 'vue'
+
 export default {
   name: 'Check',
-  components: {TopTab, Footer, Check, Personal, ProblemFind, Notice},
+  components: {TopTab, Footer, Check, Personal, ProblemFind, Notice, show},
   data: function () {
     return {
-      id: '2',
-      relationship: '55'
+      id: '22',
+      relationship: '55',
+      relation: 1
     }
   },
   methods: {
@@ -98,12 +96,9 @@ export default {
     },
     handleClose (key, keyPath) {
       console.log(key, keyPath)
-    }
-  },
-  mounted () {
-    let _this = this
-    window.onload = function () {
-      let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/getReview'
+    },
+    pass () {
+      let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/reviewConfirm'
       let xhr = new XMLHttpRequest()
       let data
       /* let data, relation
@@ -113,15 +108,8 @@ export default {
           if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
             data = JSON.parse(xhr.responseText)
             console.log(data)
-            console.log('2')
             if (data) {
-              console.log(data[0].passive_user_id)
-              switch (data[0].relation) {
-                case 1: _this.relationship = '父子/母子'; break
-                case 2: _this.relationship = '兄弟姐妹'; break
-              }
-              /* Vue.set(that.da, 'id', data[0].passive_user_id)
-              Vue.set(that.da, 'relationship', relation) */
+
             }
           } else {
             console.log('error')
@@ -130,7 +118,28 @@ export default {
       }
       xhr.open('get', url, false)
       xhr.send()
+    },
+    getCheck (info) {
+      console.log(info)
+      this.id = info.id
+      this.relationship = info.relationship
+      console.log(this.id)
     }
+  },
+  render: function (createElement) {
+    var self = this
+    return createElement('input', {
+      domProps: {
+        value: self.value
+      },
+      on: {
+        input: function (event) {
+          self.$emit('input', event.target.value)
+        }
+      }
+    })
+  },
+  mounted () {
   }
 }
 </script>

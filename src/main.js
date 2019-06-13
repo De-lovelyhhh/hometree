@@ -18,11 +18,13 @@ import Login from './components/Login.vue'
 import Administrator from './components/Administrator'
 import Delete from './components/Delete'
 import AdministratorNew from './components/Administrator_New.vue'
+import Global from './components/Global.vue'
 import axios from 'axios'
 import qs from 'qs'
 Vue.prototype.$ajax = axios
 Vue.prototype.$qs = qs
 Vue.prototype.$router = VueRouter
+Vue.prototype.GLOBAL = Global
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -94,6 +96,11 @@ const routes = [
     path: '/Administrator_New',
     name: 'Administrator_New',
     component: AdministratorNew
+  },
+  {
+    path: '/Global',
+    name: 'Global',
+    component: Global
   }
 ]
 

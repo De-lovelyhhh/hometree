@@ -1,8 +1,9 @@
 <template>
   <div>
-    <el-header style="background-color: #eff4fa;">
+    <NoticeBar/>
+    <!--<el-header style="background-color: #eff4fa;">
       <TopTab/>
-    </el-header>
+    </el-header>-->
     <div class="tapbar">
       <el-row class="tac">
         <el-col :span="12" style="width: 100%">
@@ -48,6 +49,7 @@ import Check from './Check.vue'
 import Personal from './Personal.vue'
 import ProblemFind from './ProblemFind.vue'
 import Notice from './Notice.vue'
+import NoticeBar from './NoticeBar.vue'
 window.onload = function () {
   let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/getReview'
   let xhr = new XMLHttpRequest()
@@ -69,7 +71,7 @@ window.onload = function () {
   xhr.send()
 }
 export default {
-  components: {TopTab, Tree, Check, Personal, ProblemFind, Notice},
+  components: {TopTab, Tree, Check, Personal, ProblemFind, Notice, NoticeBar},
   name: 'AfterLogin',
   methods: {
     handleOpen (key, keyPath) {

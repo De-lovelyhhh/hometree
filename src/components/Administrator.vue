@@ -61,7 +61,7 @@
               <AdministratorNew />
             </el-col>
             <el-col v-if="activeName==='second'">
-              <!--<Administrator_Retired />-->
+              <AdministratorRetired />
             </el-col>
           </div>
         <!--</el-col>-->
@@ -80,10 +80,10 @@
 import TopTab from './TopTab.vue'
 import Footer from './Footer.vue'
 import AdministratorNew from './Administrator_New.vue'
-// import Administrator_Retired from './Administrator_Retired'
+import AdministratorRetired from './Administrator_Retired'
 export default {
   name: 'Administrator',
-  components: {TopTab, Footer, AdministratorNew},
+  components: {TopTab, Footer, AdministratorNew, AdministratorRetired},
   data () {
     return {
       activeName: 'first'

@@ -72,7 +72,7 @@ export default {
     return {
       activeName: 'first',
       activeIndex: '1',
-      imageUrl: 'https://dummyimage.com/100x100/00f/fff',
+      imageUrl: 'D:\\家族树\\页面\\修改密码页面\\hometree\\src\\assets\\logo.png',
       massage: '有新消息啦~~~'
     }
   },

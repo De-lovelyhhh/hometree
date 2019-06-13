@@ -16,11 +16,8 @@
                   <el-form-item label="姓名" prop="name" class="top">
                     <el-input v-model="ruleForm.name" style="width: 85%"></el-input>
                   </el-form-item>
-                  <el-form-item label="就任意见" prop="reason" class="top">
-                    <el-input v-model="ruleForm.reason" style="width: 85%;" readonly="readonly"></el-input>
-                  </el-form-item>
                   <el-form-item style="margin-top: 15%;">
-                    <el-button type="primary" @click="submitForm('ruleForm')" style="width:80%">确定</el-button>
+                    <el-button type="primary" @click="sub" style="width:80%">确定</el-button>
                   </el-form-item>
                   <el-form-item>
                     <el-button @click="resetForm('ruleForm')" style="width: 80%">取消</el-button>
@@ -66,6 +63,23 @@ export default {
     }
   },
   methods: {
+    sub () {
+      let that = this
+      this.$ajax.get(
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/offerAdmin',
+        this.$qs.stringify({
+          employee_id: that.ruleForm.id
+        }))
+        .then(function (response) {
+          console.log(response)
+          if (response.data.code === 0) {
+            alert('任命成功！')
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

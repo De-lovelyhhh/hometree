@@ -75,7 +75,7 @@
             <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
+            <el-button type="primary" @click="sub">提交</el-button>
             <el-button @click="resetForm('ruleForm2')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -119,7 +119,6 @@ export default {
       choose: 0,
       moveon: 0,
       ruleForm: {
-        answer: '',
         delivery: false,
         type: [],
         resource: '',
@@ -127,9 +126,6 @@ export default {
         id: ''
       },
       rules: {
-        answer: [
-          { required: true, message: '请输入答案', trigger: 'blur' }
-        ],
         id: [
           { required: true, message: '请输入身份证号码', trigger: 'blur' }
         ]
@@ -150,6 +146,23 @@ export default {
     }
   },
   methods: {
+    sub () {
+      let that = this
+      this.$ajax.get(
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/verifyIdCard',
+        this.$qs.stringify({
+          id_card: that.ruleForm.id
+        }))
+        .then(function (response) {
+          console.log(response)
+          if (response.data.permission) {
+            that.$router.push('/AfterLogin')
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

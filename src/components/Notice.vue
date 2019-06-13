@@ -10,8 +10,6 @@
 
     <div>--</div>
 
-    <AfterLogin />
-
     <!--输入框div-->
 
     <div>
@@ -67,166 +65,152 @@
 
   </div>
 
-
 </template>
 
 <script>
-  import TopTab from './TopTab.vue'
-  import Footer from './Footer.vue'
-  import AfterLogin from './AfterLogin.vue'
-  import Notice from './Notice.vue'
-  export default {
-    name: 'Notice',
-    components: {TopTab, Footer, AfterLogin, Notice},
-    data () {
-      return {
+import TopTab from './TopTab.vue'
+import Footer from './Footer.vue'
+import AfterLogin from './AfterLogin.vue'
+import Notice from './Notice.vue'
+export default {
+  name: 'Notice',
+  components: {TopTab, Footer, AfterLogin, Notice},
+  data () {
+    return {
 
-        pickerOptions: {
-          shortcuts: [{
-            text: '今天(now)',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        valuedate: '',
-
-        //  自动滚动的公告内容
-        textArr: [
-          '1 第一条公告',
-          '2 第二条公告第二条公告',
-          '3 第三条公告第三条公告第三条公告'
-        ],
-
-         // 换行符替换
-        // str = str1.replace(/\\n/gm,"<br/>"),
-
-        show:true,
-        lastext:"",
-        ann:"",
-        getStr: "",
-        number: 0
-      }
-    },
-    created: function() {
-      // the created hook is called after the instance is created
-    },
-    computed: {
-      text () {
-        return {
-          id: this.number,
-          val: this.textArr[this.number]
-        }
-      }
-    },
-    mounted () {
-      this.startMove()
-    },
-    methods: {
-
-      // 滚动公告条
-      startMove () {
-        // eslint-disable-next-line
-        let timer = setTimeout(() => {
-          if (this.number === 2) {
-            this.number = 0;
-          } else {
-            this.number += 1;
+      pickerOptions: {
+        shortcuts: [{
+          text: '今天(now)',
+          onClick (picker) {
+            picker.$emit('pick', new Date())
           }
-          this.startMove();
-        }, 2000); // 滚动不需要停顿则将2000改成动画持续时间
+        }, {
+          text: '昨天',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '一周前',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
       },
+      valuedate: '',
 
-      Edit(){
-        this.$prompt('编辑公告（施工中）', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-        }).then(({ value }) => {
+      //  自动滚动的公告内容
+      textArr: [
+        '1 第一条公告',
+        '2 第二条公告第二条公告',
+        '3 第三条公告第三条公告第三条公告'
+      ],
+      // 换行符替换
+      // str = str1.replace(/\\n/gm,"<br/>"),
+      show: true,
+      lastext: '',
+      ann: '',
+      getStr: '',
+      number: 0
+    }
+  },
+  created: function () {
+    // the created hook is called after the instance is created
+  },
+  computed: {
+    text () {
+      return {
+        id: this.number,
+        val: this.textArr[this.number]
+      }
+    }
+  },
+  mounted () {
+    this.startMove()
+  },
+  methods: {
 
-          // console.log( this.ann);
-          // this.getStr = this.ann;
-          getStr = value
-
-          this.$message({
-            type: 'success',
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消输入'
-          });
-        });
-      },
-
-      // 公告编辑栏的智能浮动(待实现)
-
-
-      // 获取input
-      submitAnn() {
+    // 滚动公告条
+    startMove () {
+      // eslint-disable-next-line
+        let timer = setTimeout(() => {
+        if (this.number === 2) {
+          this.number = 0
+        } else {
+          this.number += 1
+        }
+        this.startMove()
+      }, 2000) // 滚动不需要停顿则将2000改成动画持续时间
+    },
+    Edit () {
+      this.$prompt('编辑公告（施工中）', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
         // console.log( this.ann);
         // this.getStr = this.ann;
-        let arr = [];
-        this.ann.split('\n').forEach(item=>arr.push(`<p>${item.trim()}</p>`));
-        this.getStr += arr.join('');
-        if(this.valuedate){
-          this.getStr += "————" + this.valuedate;
-        }
-        else{
-          this.getStr += "———— 日期未设置"
-        }
+        this.getStr = value
 
-        this.ann = "";
+        this.$message({
+          type: 'success'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        })
+      })
+    },
 
-        },
+    // 公告编辑栏的智能浮动(待实现)
 
-      // 返回修改 待改进
-      // btnReturn: function() {
-      //     this.getStr = this.lastext;
-      // },
+    // 获取input
+    submitAnn () {
+      // console.log( this.ann);
+      // this.getStr = this.ann;
+      let arr = []
+      this.ann.split('\n').forEach(item => arr.push(`<p>${item.trim()}</p>`))
+      this.getStr += arr.join('')
+      if (this.valuedate) {
+        this.getStr += '————' + this.valuedate
+      } else {
+        this.getStr += '———— 日期未设置'
+      }
 
-      // 清空
-      delcfm(){
+      this.ann = ''
+    },
 
-        this.$confirm('将清空当前公告墙, 确定吗?', '提示', {
-          cancelButtonText: '算了',
-          confirmButtonText: '确定',
-          type: 'warning'
-        }).then(() => {
+    // 返回修改 待改进
+    // btnReturn: function() {
+    //     this.getStr = this.lastext;
+    // },
 
-          this.getStr = "",
-            this.ann = "",
+    // 清空
+    delcfm () {
+      this.$confirm('将清空当前公告墙, 确定吗?', '提示', {
+        cancelButtonText: '算了',
+        confirmButtonText: '确定',
+        type: 'warning'
+      }).then(() => {
+        this.getStr = ''
+        this.ann = ''
 
-          this.$message({
-            type: 'success',
-            message: '清空成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          });
-        });
-
-
-      },
-
-
+        this.$message({
+          type: 'success',
+          message: '清空成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
+      })
     }
   }
+}
 
 </script>
 

@@ -16,12 +16,6 @@
           <el-form-item label="密码" prop="password" class="interval up">
             <el-input v-model="ruleForm.password" class="inputLeft"></el-input>
           </el-form-item>
-            <el-form-item label="密保问题" prop="problem" class="top interval up">
-              <el-input v-model="ruleForm.problem" class="inputLeft"></el-input>
-            </el-form-item>
-            <el-form-item label="密保答案" prop="answer" class="top interval up">
-              <el-input v-model="ruleForm.answer" class="inputLeft"></el-input>
-            </el-form-item>
           <el-form-item label="联系方式" prop="phoneNumber" class="interval up">
             <el-input v-model="ruleForm.phoneNumber" class="inputLeft"></el-input>
           </el-form-item>

@@ -49,7 +49,8 @@ export default {
   data () {
     return {
       existCookie: document.cookie,
-      nodata: {}
+      nodata: [],
+      number: []
     }
   },
   components: {
@@ -85,13 +86,38 @@ export default {
         }
       }
       return ''
+    },
+    getnotice: function () {
+      let i, q
+      let that = this
+      this.$ajax.get(
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/showPostTitle')
+        .then(function (response) {
+          if (response.data) {
+            q = response.data
+            for (i = 0; i < q.length; i++) {
+              that.nodata.push(q[i].poster_title)
+              that.number.push(q[i].poster_id)
+            }
+            // that.$router.push('/AfterLogin')
+            that.GLOBAL.nodata = that.nodata
+            that.GLOBAL.number = that.number
+            console.log(that.GLOBAL.nodata)
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     }
+  },
+  created () {
+    this.getnotice()
   },
   mounted () {
     let that = this
     window.onload = function () {
       let exist = document.cookie
-      if (exist.indexOf('skey') === -1) {
+      if (exist.indexOf('skey') !== -1) {
         that.$router.push('/SignPage')
       } else {
         that.$router.push('/AfterLogin')

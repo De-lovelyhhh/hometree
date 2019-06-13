@@ -41,7 +41,7 @@ export default {
     Send () {
       let that = this
       this.$ajax.post(
-        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/addPost',
+        'http://47.106.250.33:7002/api/addPost',
         this.$qs.stringify({
           poster_title: this.textarea_title,
           poster_content: this.textarea_content

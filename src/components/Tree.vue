@@ -9,7 +9,7 @@
    */
 // 数据
 import * as d3 from 'd3'
-let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/tree'
+let url = 'http://47.106.250.33:7002/api/getTree'
 let xhr = new XMLHttpRequest()
 var dataset
 xhr.onreadystatechange = function () {

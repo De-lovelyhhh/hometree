@@ -85,7 +85,7 @@ export default {
     let that = this
     let data
     this.$ajax.get(
-      'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/getPostDetails',
+      'http://47.106.250.33:7002/api/getPostDetails',
       {
         params: {
           poster_id: that.$route.params.id

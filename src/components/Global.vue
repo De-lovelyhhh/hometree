@@ -28,7 +28,7 @@ export default {
       // let that = this
       let i, q
       this.$ajax.get(
-        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/showPostTitle')
+        'http://47.106.250.33:7002/api/showPostTitle')
         .then(function (response) {
           console.log(response)
           if (response.data) {

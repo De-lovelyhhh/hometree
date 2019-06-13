@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <!--<router-link to="/Administrator">管理员</router-link>
-    <router-view></router-view>-->
+    <router-link to="/Administrator"></router-link>
+    <router-view></router-view>
     <!--<div v-if="existCookie.indexOf('skey')===-1">
       <SignPage />
     </div>
@@ -78,7 +78,7 @@ export default {
       let i, q
       let that = this
       this.$ajax.get(
-        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/showPostTitle',
+        'http://47.106.250.33:7002/api/showPostTitle',
         {
           headers: {
             'skey': that.GLOBAL.skey

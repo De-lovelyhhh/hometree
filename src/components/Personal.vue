@@ -54,10 +54,7 @@ export default {
       activeName: 'first',
       activeIndex: '1',
       imageUrl: 'https://dummyimage.com/100x100/00f/fff',
-      massage: '有新消息啦~~~',
-      img: [{
-        src: require('../assets/fff.png')
-      }]
+      massage: '有新消息啦~~~'
     }
   },
   methods: {

@@ -6,7 +6,7 @@ export default {
       nodata: ['111'],
       number: [1],
       skey: '',
-      permission: ''
+      permission: 2
     }
   },
   created () {

@@ -25,13 +25,17 @@
               <i class="el-icon-document"></i>
               <span slot="title"><router-link to="/Personal">个人页面</router-link></span>
             </el-menu-item>
-            <el-menu-item index="4">
+            <el-menu-item index="4" >
               <i class="el-icon-setting"></i>
               <span slot="title"><router-link to="/ProblemFind">修改密码</router-link></span>
             </el-menu-item>
-            <el-menu-item index="5">
+            <el-menu-item index="5" v-if="permission === 2">
               <i class="el-icon-location"></i>
-              <span slot="title"><router-link to="/Notice">公告墙</router-link></span>
+              <span slot="title"><router-link to="/Gonggao">写公告</router-link></span>
+            </el-menu-item>
+            <el-menu-item index="5" v-if="permission === 2">
+              <i class="el-icon-location"></i>
+              <span slot="title"><router-link to="/Administrator">管理员</router-link></span>
             </el-menu-item>
           </el-menu>
           <router-view></router-view>
@@ -50,8 +54,10 @@ import Personal from './Personal.vue'
 import ProblemFind from './ProblemFind.vue'
 import Notice from './Notice.vue'
 import NoticeBar from './NoticeBar.vue'
+import Gonggao from './Gonggao.vue'
+import Administrator from './Administrator.vue'
 window.onload = function () {
-  let url = 'http://47.106.250.33:7002/api/getReview'
+  let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/getReview'
   let xhr = new XMLHttpRequest()
   var data
   xhr.onreadystatechange = function () {
@@ -71,8 +77,13 @@ window.onload = function () {
   xhr.send()
 }
 export default {
-  components: {TopTab, Tree, Check, Personal, ProblemFind, Notice, NoticeBar},
+  components: {TopTab, Tree, Check, Personal, ProblemFind, Notice, NoticeBar, Gonggao, Administrator},
   name: 'AfterLogin',
+  data () {
+    return {
+      permission: this.GLOBAL.permission
+    }
+  },
   methods: {
     handleOpen (key, keyPath) {
       console.log(key, keyPath)

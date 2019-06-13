@@ -66,10 +66,14 @@ export default {
     sub () {
       let that = this
       this.$ajax.get(
-        'http://47.106.250.33:7002/api/offerAdmin',
-        this.$qs.stringify({
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/offerAdmin',
+        {params: {
           employee_id: that.ruleForm.id
-        }))
+        },
+        headers: {
+          'skey': that.GLOBAL.skey,
+          'permission': 2
+        }})
         .then(function (response) {
           console.log(response)
           if (response.data.code === 0) {

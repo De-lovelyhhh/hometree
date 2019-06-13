@@ -10,14 +10,12 @@
               <div>
                 <div style="margin:15px ">
                   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="70px" style="padding-top:3%" class="retired_ruleForm">
-                    <el-form-item label="账号" prop="id">
-                      <el-input v-model="ruleForm.id" style="width: 85%" ></el-input>
-                    </el-form-item>
+                    卸任自己，确定？
                     <el-form-item style="margin-top: 15%">
-                      <el-button type="primary" @click="sub" style="width:80%">确定</el-button>
+                      <el-button type="primary" @click="sub" style="width:80%;margin-left: -25%;">确定</el-button>
                     </el-form-item>
                     <el-form-item>
-                      <el-button @click="resetForm('ruleForm')" style="width: 80%">取消</el-button>
+                      <el-button @click="resetForm('ruleForm')" style="width: 80%;margin-left: -25%;">取消</el-button>
                     </el-form-item>
                   </el-form>
                 </div>
@@ -43,17 +41,6 @@ export default {
         id: '',
         name: '',
         reason: ''
-      },
-      rules: {
-        id: [
-          {required: true, message: '请输入卸任者的账号', trigger: 'blur'}
-        ],
-        name: [
-          {required: true, message: '请输入卸任者的姓名', trigger: 'blur'}
-        ],
-        reason: [
-          {required: true, message: '请输入卸任其原因', trigger: 'blur'}
-        ]
       }
     }
   },
@@ -61,14 +48,18 @@ export default {
     sub () {
       let that = this
       this.$ajax.get(
-        'http://47.106.250.33:7002/api/dismissAdmin',
-        this.$qs.stringify({
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/dismissAdmin',
+        {params: {
           employee_id: that.ruleForm.id
-        }))
+        },
+        headers: {
+          'skey': that.GLOBAL.skey,
+          'permission': 2
+        }})
         .then(function (response) {
           console.log(response)
           if (response.data.code === 0) {
-            alert('任命成功！')
+            alert('卸任成功！')
           }
         })
         .catch(function (error) {

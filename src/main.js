@@ -18,9 +18,12 @@ import Login from './components/Login.vue'
 import Administrator from './components/Administrator'
 import Delete from './components/Delete'
 import AdministratorNew from './components/Administrator_New.vue'
+import AdministratorRetired from './components/Administrator_Retired.vue'
 import Global from './components/Global.vue'
+import Gonggao from './components/Gonggao.vue'
 import axios from 'axios'
 import qs from 'qs'
+axios.defaults.withCredentials = true
 Vue.prototype.$ajax = axios
 Vue.prototype.$qs = qs
 Vue.prototype.$router = VueRouter
@@ -53,7 +56,7 @@ const routes = [
     component: Check
   },
   {
-    path: '/Notice',
+    path: '/Notice/:id',
     name: 'Notice',
     component: Notice
   },
@@ -98,9 +101,19 @@ const routes = [
     component: AdministratorNew
   },
   {
+    path: '/Administrator_Retired',
+    name: 'Administrator_Retired',
+    component: AdministratorRetired
+  },
+  {
     path: '/Global',
     name: 'Global',
     component: Global
+  },
+  {
+    path: '/Gonggao',
+    name: 'Gonggao',
+    component: Gonggao
   }
 ]
 

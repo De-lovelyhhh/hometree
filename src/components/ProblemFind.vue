@@ -7,8 +7,6 @@
             <el-menu
               default-active="2"
               class="el-menu-vertical-demo left out"
-              @open="handleOpen"
-              @close="handleClose"
             >
               <el-menu-item index="1">
                 <i class="el-icon-location"></i>
@@ -22,13 +20,17 @@
                 <i class="el-icon-document"></i>
                 <span slot="title"><router-link to="/Personal">个人页面</router-link></span>
               </el-menu-item>
-              <el-menu-item index="4">
+              <el-menu-item index="4" >
                 <i class="el-icon-setting"></i>
                 <span slot="title"><router-link to="/ProblemFind">修改密码</router-link></span>
               </el-menu-item>
-              <el-menu-item index="5">
+              <el-menu-item index="5" v-if="permission === 2">
                 <i class="el-icon-location"></i>
-                <span slot="title"><router-link to="/Notice">公告墙</router-link></span>
+                <span slot="title"><router-link to="/Gonggao">写公告</router-link></span>
+              </el-menu-item>
+              <el-menu-item index="5" v-if="permission === 2">
+                <i class="el-icon-location"></i>
+                <span slot="title"><router-link to="/Administrator">管理员</router-link></span>
               </el-menu-item>
             </el-menu>
             <router-view></router-view>
@@ -56,7 +58,7 @@
             <el-input v-model="ruleForm.id"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+            <el-button type="primary" @click="sub">确定</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -75,7 +77,7 @@
             <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="sub">提交</el-button>
+            <el-button type="primary" @click="sub2">提交</el-button>
             <el-button @click="resetForm('ruleForm2')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -91,8 +93,9 @@ import Personal from './Personal.vue'
 import ProblemFind from './ProblemFind.vue'
 import AfterLogin from './AfterLogin.vue'
 import Notice from './Notice.vue'
+import Administrator from './Administrator.vue'
 export default {
-  components: {TopTab, Check, Personal, ProblemFind, AfterLogin, Notice},
+  components: {TopTab, Check, Personal, ProblemFind, AfterLogin, Notice, Administrator},
   name: 'ProblemFind',
   data () {
     var validatePass = (rule, value, callback) => {
@@ -149,13 +152,39 @@ export default {
     sub () {
       let that = this
       this.$ajax.get(
-        'http://47.106.250.33:7002/api/verifyIdCard',
-        this.$qs.stringify({
-          id_card: that.ruleForm.id
-        }))
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/verifyIdCard',
+        {params:
+      {
+        id_card: that.ruleForm.id
+      },
+        headers: {
+          'skey': that.GLOBAL.skey,
+          'permission': that.GLOBAL.permission
+        }})
         .then(function (response) {
           console.log(response)
           if (response.data.permission) {
+            that.moveon++
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+    sub2 () {
+      let that = this
+      this.$ajax.get(
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/editPassword',
+        {params: {
+          password: that.ruleForm2.pass
+        },
+        headers: {
+          'skey': that.GLOBAL.skey,
+          'permission': that.GLOBAL.permission
+        }})
+        .then(function (response) {
+          console.log(response)
+          if (response.data.code === 0) {
             that.$router.push('/AfterLogin')
           }
         })

@@ -21,13 +21,17 @@
               <i class="el-icon-document"></i>
               <span slot="title"><router-link to="/Personal">个人页面</router-link></span>
             </el-menu-item>
-            <el-menu-item index="4">
+            <el-menu-item index="4" >
               <i class="el-icon-setting"></i>
               <span slot="title"><router-link to="/ProblemFind">修改密码</router-link></span>
             </el-menu-item>
-            <el-menu-item index="5">
+            <el-menu-item index="5" v-if="permission === 2">
               <i class="el-icon-location"></i>
-              <span slot="title"><router-link to="/Notice">公告墙</router-link></span>
+              <span slot="title"><router-link to="/Gonggao">写公告</router-link></span>
+            </el-menu-item>
+            <el-menu-item index="5" v-if="permission === 2">
+              <i class="el-icon-location"></i>
+              <span slot="title"><router-link to="/Administrator">管理员</router-link></span>
             </el-menu-item>
           </el-menu>
           <router-view></router-view>
@@ -45,12 +49,21 @@
               <div>
                 <div style="margin:15px 0">
                   <el-form label-width="70px" style="padding-top: 30px">
-                    <show :id="id" @showinfo="getCheck" :relation="relationship"/>
+                    <el-form-item label="账号">
+                      <el-input v-model="id" style="width: 85%" readonly="readonly">{{id}}</el-input>
+                    </el-form-item>
+                    <el-form-item label="二者关系">
+                      <el-input v-model="relationship" style="width: 85%" readonly="readonly"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                      <el-button type="primary" style="width: 70%; margin-top:5%; margin-left:-30%" @click="getCheck">获取审核信息</el-button>
+                    </el-form-item>
+                    <!--<show :id="id" @showinfo="getCheck" :relation="relationship"/>-->
                     <el-form-item>
                       <el-button type="primary" style="width: 70%; margin-top:5%; margin-left:-30%" @click="pass">通过</el-button>
                     </el-form-item>
                     <el-form-item>
-                      <el-button type="primary" style="width: 70%; margin-top: 5%; margin-left:-30%" >不通过</el-button>
+                      <el-button type="primary" style="width: 70%; margin-top: 5%; margin-left:-30%" @click="notpass">不通过</el-button>
                     </el-form-item>
                   </el-form>
 
@@ -78,15 +91,16 @@ import Personal from './Personal.vue'
 import ProblemFind from './ProblemFind.vue'
 import Notice from './Notice.vue'
 import show from './show.vue'
+import Administrator from './Administrator.vue'
 // import Vue from 'vue'
 
 export default {
   name: 'Check',
-  components: {TopTab, Footer, Check, Personal, ProblemFind, Notice, show},
+  components: {TopTab, Footer, Check, Personal, ProblemFind, Notice, show, Administrator},
   data: function () {
     return {
-      id: '22',
-      relationship: '55',
+      id: '',
+      relationship: '',
       relation: 1
     }
   },
@@ -98,32 +112,78 @@ export default {
       console.log(key, keyPath)
     },
     pass () {
-      let url = 'http://47.106.250.33:7002/api/reviewConfirm'
-      let xhr = new XMLHttpRequest()
-      let data
-      /* let data, relation
-      let that = this */
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-            data = JSON.parse(xhr.responseText)
-            console.log(data)
-            if (data) {
-
-            }
-          } else {
-            console.log('error')
+      let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/reviewConfirm'
+      let that = this
+      this.$ajax.get(
+        url,
+        {
+          params: {
+            passive_user_id: that.id,
+            relation: that.relation,
+            confirm_state: true
+          },
+          headers: {
+            'skey': that.GLOBAL.skey
           }
         }
-      }
-      xhr.open('get', url, false)
-      xhr.send()
+      ).then(function (response) {
+        console.log(response.data[0])
+        if (response.data) {
+          console.log('通过！')
+        }
+      }).catch(function (error) {
+        console.log(error)
+      })
     },
-    getCheck (info) {
-      console.log(info)
-      this.id = info.id
-      this.relationship = info.relationship
-      console.log(this.id)
+    notpass () {
+      let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/reviewConfirm'
+      let that = this
+      this.$ajax.get(
+        url,
+        {
+          params: {
+            passive_user_id: that.id,
+            relation: that.relation
+          },
+          headers: {
+            'skey': that.GLOBAL.skey
+          }
+        }
+      ).then(function (response) {
+        console.log(response.data[0])
+        if (response.data) {
+          alert('成功！')
+        }
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    getCheck () {
+      let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/getReview'
+      let data
+      /* let data, relation */
+      let that = this
+      this.$ajax.get(
+        url,
+        {
+          headers: {
+            'skey': that.GLOBAL.skey
+          }
+        }
+      ).then(function (response) {
+        console.log(response.data[0])
+        if (response.data) {
+          data = response.data[0]
+          switch (data.relation) {
+            case 1: that.relationship = '父子/母子'; break
+            case 2: that.relationship = '兄弟姐妹'; break
+          }
+          that.id = data.passive_user_id
+          that.relation = data.relation
+        }
+      }).catch(function (error) {
+        console.log(error)
+      })
     }
   },
   render: function (createElement) {

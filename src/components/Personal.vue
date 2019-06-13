@@ -26,26 +26,7 @@
             </div>
           </el-col>
         </el-row>
-        <!--上方导航栏-->
-        <el-row>
-          <el-col :span="16" :offset="4">
-            <div class="option">
-              <el-tabs v-model="activeName" @tab-click="handleClick" stretch=true>
-                <el-tab-pane label="我的日志" name="first"></el-tab-pane>
-                <el-tab-pane label="我的留言" name="second"></el-tab-pane>
-                <el-tab-pane label="编辑资料" name="third"></el-tab-pane>
-              </el-tabs>
-            </div>
-          </el-col>
-        </el-row>
-        <!--左边导航连-->
-        <div v-if="activeName === 'first'">
-          <MyMoment/>
-        </div>
-        <div v-if="activeName === 'second'"></div>
-        <div v-if="activeName === 'third'">
           <EditInformation/>
-        </div>
       </el-main>
       <!--页脚-->
       <el-footer height="90px" style="background-color: #eff4fa;">
@@ -72,8 +53,11 @@ export default {
     return {
       activeName: 'first',
       activeIndex: '1',
-      imageUrl: 'D:\\家族树\\页面\\修改密码页面\\hometree\\src\\assets\\logo.png',
-      massage: '有新消息啦~~~'
+      imageUrl: 'https://dummyimage.com/100x100/00f/fff',
+      massage: '有新消息啦~~~',
+      img: [{
+        src: require('../assets/fff.png')
+      }]
     }
   },
   methods: {

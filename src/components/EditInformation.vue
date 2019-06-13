@@ -1,5 +1,5 @@
 <template>
-  <div id="editInformation" style="margin-top: 50px; height: 700px;" align="left" v-loading="loading">
+  <div id="editInformation" style="margin-top: 2%; height: 700px;margin-left: 13%" align="left" v-loading="loading">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px">
 
       <el-form-item label="姓名" prop="name">
@@ -9,11 +9,11 @@
         <el-input v-model="ruleForm.country" style="width: 200px"></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="sex">
-        <el-radio v-model="ruleForm.sex" label="female">女</el-radio>
-        <el-radio v-model="ruleForm.sex" label="male">男</el-radio>
+        <el-radio v-model="ruleForm.sex" label="1">女</el-radio>
+        <el-radio v-model="ruleForm.sex" label="2">男</el-radio>
       </el-form-item>
       <el-form-item label="出生地" prop="region">
-        <AreaPicker style="width: fit-content"/>
+        <el-input v-model="ruleForm.region" style="width: 200px"></el-input>
       </el-form-item>
       <el-form-item label="出生日期">
         <el-col :span="5">
@@ -49,7 +49,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+        <el-button type="primary" @click="sub">立即创建</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
 
@@ -118,6 +118,38 @@ export default {
           return false
         }
       })
+    },
+    sub () {
+      let that = this
+      this.$ajax.post(
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/editUserInfo',
+        this.$qs.stringify({
+          home_location: that.ruleForm.region,
+          work: that.ruleForm.work,
+          password: that.ruleForm.password,
+          work_location: that.ruleForm.workPlace,
+          tele: that.ruleForm.contactWay.phoneNumber,
+          qq: that.ruleForm.contactWay.weChat,
+          email: that.ruleForm.contactWay.Email,
+          interest: that.ruleForm.hobby,
+          // avatar: that.ruleForm.
+          gender: that.ruleForm.sex,
+          country: that.ruleForm.country,
+          birthday: that.ruleForm.birth
+        }, {
+          headers: {
+            'skey': that.GLOBAL.skey
+          }
+        }))
+        .then(function (response) {
+          console.log(response)
+          if (response.data.code === 0) {
+            alert('修改成功！')
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()

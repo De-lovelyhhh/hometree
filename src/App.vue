@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <router-link to="/Administrator">管理员</router-link>
-    <router-view></router-view>
+    <!--<router-link to="/Administrator">管理员</router-link>
+    <router-view></router-view>-->
     <!--<div v-if="existCookie.indexOf('skey')===-1">
       <SignPage />
     </div>
@@ -34,6 +34,7 @@ import AreaPicker from './components/AreaPicker.vue'
 import Login from './components/Login.vue'
 import Delete from './components/Delete.vue'
 import Administrator from './components/Administrator.vue'
+import Gonggao from './components/Gonggao.vue'
 // import Administrator_New from './components/Administrator_New.vue'
 
 /* window.onload = function () {
@@ -54,7 +55,7 @@ export default {
     }
   },
   components: {
-    SignPage, ProblemFind, AfterLogin, Check, Notice, Tree, Personal, EditInformation, AreaPicker, Administrator, Delete, Login
+    SignPage, ProblemFind, AfterLogin, Check, Notice, Tree, Personal, EditInformation, AreaPicker, Administrator, Delete, Login, Gonggao
   },
   computed: {
     username () {
@@ -73,25 +74,16 @@ export default {
     handleClick (tab, event) {
       console.log(tab, event)
     },
-    getCookie: function (cname) {
-      var name = cname + '='
-      var ca = document.cookie.split(';')
-      console.log('获取cookie,现在循环')
-      for (var i = 0; i < ca.length; i++) {
-        var c = ca[i]
-        console.log(c)
-        while (c.charAt(0) === ' ') c = c.substring(1)
-        if (c.indexOf(name) !== -1) {
-          return c.substring(name.length, c.length)
-        }
-      }
-      return ''
-    },
     getnotice: function () {
       let i, q
       let that = this
       this.$ajax.get(
-        'http://47.106.250.33:7002/api/showPostTitle')
+        'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/showPostTitle',
+        {
+          headers: {
+            'skey': that.GLOBAL.skey
+          }
+        })
         .then(function (response) {
           if (response.data) {
             q = response.data
@@ -116,8 +108,18 @@ export default {
   mounted () {
     let that = this
     window.onload = function () {
+      var ca = document.cookie.split(';')
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].split('=')
+        if (c[0] === 'skey') {
+          that.GLOBAL.skey = c[1]
+        } else if (c[0] === 'permission') {
+          that.GLOBAL.permission = c[1]
+        }
+        console.log('\n' + c)
+      }
       let exist = document.cookie
-      if (exist.indexOf('skey') !== -1) {
+      if (exist.indexOf('skey') === -1) {
         that.$router.push('/SignPage')
       } else {
         that.$router.push('/AfterLogin')

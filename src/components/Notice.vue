@@ -1,4 +1,3 @@
-<!--suppress ALL -->
 <template>
   <div>
     <!--滚动公告条-->
@@ -9,55 +8,17 @@
     </div>
 
     <div>--</div>
-
-    <!--输入框div-->
-
-    <div>
-      <el-button @click="Edit" style="position: absolute;right: 21%;" disabled>编辑公告(施工中)</el-button>
-      <el-button  @click="delcfm" style="position: absolute;right:17%;">清空</el-button>
-
-      <div class="notice" id="AnnEdit" v-show="show" style="display: flex;margin-top:90px; width:230px;border:3px solid #9c9c9c"  >
-
-        <transition name="el-fade-in-linear">
-
-        <div>
-
-      <!--待加入权限限制编辑功能-->
-      <p style="text-align: center">公告编辑(本地版)</p>
-      <!--<textarea type="text" placeholder="发点什么呢~"  v-model="ann" style="height:150px"></textarea>-->
-      <el-input
-        type="textarea"
-        :autosize="{ minRows: 3, maxRows: 50}"
-        placeholder="发点什么呢~"
-        maxlength="200"
-        show-word-limit
-        v-model="ann"
-      >
-      </el-input>
-
-      <el-button type="text" @click='submitAnn' >发布</el-button>
-      <!--<button type="button" v-on:click='btnReturn' >返回修改</button>-->
-          <el-date-picker
-            v-model="valuedate"
-            type="datetime"
-            placeholder="选择日期时间"
-            align="right"
-            :picker-options="pickerOptions"
-            style="margin-bottom: 10px">
-          </el-date-picker>
-
-        </div>
-
-        </transition>
-
-    </div>
-    </div>
     <!--公告墙-->
-    <div class="annwall" style="margin-top:20px;margin-bottom: 20px;width:1000px;height: 900px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">
+    <div class="annwall"
+         style="margin-top:20px;margin-bottom: 20px;width:1000px;height: 900px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">
       <p style="text-align: center;;font-family: 'PingFang SC';font-weight: 700;font-size:40px;">
-        {{ "公告墙" }}
+        {{ '公告墙' }}
       </p>
-      <div v-html="getStr" style="text-align: center; font-family:'Hiragino Sans GB' ;font-size:15px;"></div>
+      <div style="text-align: center; font-family:'Hiragino Sans GB' ;font-size:15px;">
+        {{title}}
+        {{content}}
+        {{time}}
+      </div>
     </div>
     <el-footer height="90px" style="background-color: #eff4fa;">
       <Footer/>
@@ -72,12 +33,12 @@ import TopTab from './TopTab.vue'
 import Footer from './Footer.vue'
 import AfterLogin from './AfterLogin.vue'
 import Notice from './Notice.vue'
+
 export default {
   name: 'Notice',
   components: {TopTab, Footer, AfterLogin, Notice},
   data () {
     return {
-
       pickerOptions: {
         shortcuts: [{
           text: '今天(now)',
@@ -101,7 +62,6 @@ export default {
         }]
       },
       valuedate: '',
-
       //  自动滚动的公告内容
       textArr: [
         '1 第一条公告',
@@ -114,11 +74,38 @@ export default {
       lastext: '',
       ann: '',
       getStr: '',
-      number: 0
+      number: 0,
+      title: '',
+      content: '',
+      time: ''
     }
   },
   created: function () {
     // the created hook is called after the instance is created
+    let that = this
+    let data
+    this.$ajax.get(
+      'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/getPostDetails',
+      {
+        params: {
+          poster_id: that.$route.params.id
+        },
+        headers: {
+          'skey': that.GLOBAL.skey
+        }
+      })
+      .then(function (response) {
+        if (response.data) {
+          console.log(response.data)
+          data = response.data
+          that.title = data.poster_title
+          that.content = data.poster_content
+          that.time = data.created_at
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   },
   computed: {
     text () {
@@ -149,7 +136,7 @@ export default {
       this.$prompt('编辑公告（施工中）', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消'
-      }).then(({ value }) => {
+      }).then(({value}) => {
         // console.log( this.ann);
         // this.getStr = this.ann;
         this.getStr = value
@@ -229,15 +216,15 @@ export default {
     margin-right: 20px;
   }
 
-  .annwall{
+  .annwall {
     /*width:80%;*/
-    height:800px;
+    height: 800px;
     margin: 0 auto;
     color: #7a7a7a;
   }
 
-  .notice{
-    position:absolute;
+  .notice {
+    position: absolute;
     width: 60%;
     right: 20px;
     top: 35%;
@@ -245,9 +232,11 @@ export default {
     font-size: 25px;
     color: #7a7a7a;
   }
+
   h2 {
     padding: 20px 0
   }
+
   .textBox {
     width: 100%;
     height: 40px;
@@ -256,39 +245,48 @@ export default {
     position: relative;
     text-align: center;
   }
+
   .text {
     width: 100%;
     position: absolute;
     bottom: 0;
   }
+
   .slide-enter-active, .slide-leave-active {
     transition: all 0.5s linear;
   }
-  .slide-enter{
+
+  .slide-enter {
     transform: translateY(20px) scale(1);
     opacity: 1;
   }
+
   .slide-leave-to {
     transform: translateY(-20px) scale(0.8);
     opacity: 0;
   }
+
   /* WebKit browsers */
   ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: #bebdbd;
 
   }
+
   :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #bebdbd;
+    color: #bebdbd;
 
   }
+
   ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #bebdbd;
+    color: #bebdbd;
 
   }
+
   :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color:    #bebdbd;
+    color: #bebdbd;
 
   }
+
   input::-webkit-input-placeholder {
     /* placeholder颜色  */
     color: #aab2bd;
@@ -297,6 +295,7 @@ export default {
     /* placeholder位置  */
     text-align: center;
   }
+
   input {
     border: 1px solid black;
   }

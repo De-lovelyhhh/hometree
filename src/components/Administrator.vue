@@ -50,19 +50,18 @@
       <div>
         <el-row>
         <!--<el-col :span="17" offset="2">-->
-          <div class="option" style="width: 20%; margin-left: 40%">
+          <div class="option" style="width: 30%; margin-left: 35%">
             <el-tabs v-model="activeName" @tab-click="handleClick" stretch="true">
-              <el-tab-pane label="任命管理者" name="first"  ></el-tab-pane>
-              <el-tab-pane label="卸任管理者" name="second"></el-tab-pane>
+              <el-tab-pane label="任命管理者" name="first"  >
+                <AdministratorNew style="width: 400%; margin-left: -150%" />
+              </el-tab-pane>
+              <el-tab-pane label="卸任管理者" name="second">
+                <AdministratorRetired style="width: 400%; margin-left: -150%"/>
+              </el-tab-pane>
+              <el-tab-pane label="删除家庭成员" name="third">
+                <Delete style="width: 400%; margin-left: -150%"/>
+              </el-tab-pane>
             </el-tabs>
-          </div>
-          <div>
-            <el-col v-if="activeName==='first'">
-              <AdministratorNew />
-            </el-col>
-            <el-col v-if="activeName==='second'">
-              <AdministratorRetired />
-            </el-col>
           </div>
         <!--</el-col>-->
         </el-row>
@@ -81,9 +80,10 @@ import TopTab from './TopTab.vue'
 import Footer from './Footer.vue'
 import AdministratorNew from './Administrator_New.vue'
 import AdministratorRetired from './Administrator_Retired'
+import Delete from './Delete'
 export default {
   name: 'Administrator',
-  components: {TopTab, Footer, AdministratorNew, AdministratorRetired},
+  components: {TopTab, Footer, AdministratorNew, AdministratorRetired, Delete},
   data () {
     return {
       activeName: 'first'

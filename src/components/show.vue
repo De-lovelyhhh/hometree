@@ -18,7 +18,7 @@ export default {
   props: ['id', 'relation'],
   methods: {
     getReview () {
-      let url = 'http://47.106.250.33:7002/api/getReview'
+      let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/api/getReview'
       let data, relationship, id
       let info
       /* let data, relation

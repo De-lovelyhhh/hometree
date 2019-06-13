@@ -9,8 +9,7 @@
    */
 // 数据
 import * as d3 from 'd3'
-
-let url = 'http://47.106.250.33:7002/api/getTree'
+let url = 'https://www.easy-mock.com/mock/5b616dab0f34b755cbc58b91/dai/tree'
 let xhr = new XMLHttpRequest()
 var dataset
 xhr.onreadystatechange = function () {
@@ -25,6 +24,7 @@ xhr.onreadystatechange = function () {
   }
 }
 xhr.open('get', url, false)
+// xhr.setRequestHeader('skey', this.GLOBAL.skey)
 xhr.send()
 // d3.json(url)
 // console.log(JSON.stringify(data))

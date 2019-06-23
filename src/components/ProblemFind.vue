@@ -32,6 +32,10 @@
                 <i class="el-icon-location"></i>
                 <span slot="title"><router-link to="/Administrator">管理员</router-link></span>
               </el-menu-item>
+              <el-menu-item index="2">
+                <i class="el-icon-location"></i>
+                <span slot="title"><router-link to="/SignPage">登出</router-link></span>
+              </el-menu-item>
             </el-menu>
             <router-view></router-view>
           </el-col>
@@ -184,7 +188,7 @@ export default {
         }})
         .then(function (response) {
           console.log(response)
-          if (response.data.code === 0) {
+          if (response.data === 0) {
             that.$router.push('/AfterLogin')
           }
         })

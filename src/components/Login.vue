@@ -105,19 +105,20 @@ export default {
     sub: function () {
       let that = this
       this.$ajax.post(
-        'http://47.106.250.33:7002/api/register',
+        'http://47.106.250.33:7002/api/login',
         this.$qs.stringify({
           user_id: that.ruleForm.id,
           password: that.ruleForm.password
         }))
         .then(function (response) {
           console.log(response)
+          that.GLOBAL.permission = response.data.permission
           if (response.data.permission === 1) {
             that.$router.push('/AfterLogin')
-            console.log('普通人登录')
+            alert('普通人登录')
           } else {
             that.$router.push('/AfterLogin')
-            console.log('管理员登录')
+            alert('管理员登录')
           }
         })
         .catch(function (error) {

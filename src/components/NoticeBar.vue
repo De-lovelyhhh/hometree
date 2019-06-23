@@ -12,7 +12,8 @@ export default {
   data () {
     return {
       nodata: [],
-      number: 0
+      number: 0,
+      num: 0
     }
   },
   beforeCreate () {
@@ -60,7 +61,7 @@ export default {
     startMove () {
       // eslint-disable-next-line
       let timer = setTimeout(() => {
-        if (this.number === 2) {
+        if (this.number === 9) {
           this.number = 0
         } else {
           this.number += 1

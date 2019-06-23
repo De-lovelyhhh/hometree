@@ -77,35 +77,36 @@ export default {
     getnotice: function () {
       let i, q
       let that = this
-      this.$ajax.get(
-        'http://47.106.250.33:7002/api/showPostTitle',
-        {
-          headers: {
-            'skey': that.GLOBAL.skey
-          }
-        })
-        .then(function (response) {
-          if (response.data) {
-            q = response.data
-            for (i = 0; i < q.length; i++) {
-              that.nodata.push(q[i].poster_title)
-              that.number.push(q[i].poster_id)
+      if (that.GLOBAL.skey) {
+        this.$ajax.get(
+          'http://47.106.250.33:7002/api/showPostTitle',
+          {
+            headers: {
+              'skey': that.GLOBAL.skey
             }
-            // that.$router.push('/AfterLogin')
-            that.GLOBAL.nodata = that.nodata
-            that.GLOBAL.number = that.number
-            console.log(that.GLOBAL.nodata)
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+          })
+          .then(function (response) {
+            if (response.data) {
+              q = response.data
+              for (i = 0; i < q.length; i++) {
+                that.nodata.push(q[i].poster_title)
+                that.number.push(q[i].poster_id)
+              }
+              // that.$router.push('/AfterLogin')
+              that.GLOBAL.nodata = that.nodata
+              that.GLOBAL.number = that.number
+              console.log(that.GLOBAL.nodata)
+            }
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      } else {
+        console.log('error')
+      }
     }
   },
   created () {
-    this.getnotice()
-  },
-  mounted () {
     let that = this
     window.onload = function () {
       var ca = document.cookie.split(';')
@@ -125,6 +126,7 @@ export default {
         that.$router.push('/AfterLogin')
       }
     }
+    this.getnotice()
   }
 }
 

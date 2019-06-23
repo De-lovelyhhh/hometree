@@ -33,6 +33,10 @@
               <i class="el-icon-location"></i>
               <span slot="title"><router-link to="/Administrator">管理员</router-link></span>
             </el-menu-item>
+            <el-menu-item index="2" >
+              <i class="el-icon-location"></i>
+              <span slot="title"><router-link to="/SignPage">登出</router-link></span>
+            </el-menu-item>
           </el-menu>
           <router-view></router-view>
         </el-col>
@@ -129,7 +133,8 @@ export default {
       ).then(function (response) {
         console.log(response.data[0])
         if (response.data) {
-          console.log('通过！')
+          alert('通过审核！')
+          that.$router.push('/AfterLogin')
         }
       }).catch(function (error) {
         console.log(error)
@@ -152,7 +157,8 @@ export default {
       ).then(function (response) {
         console.log(response.data[0])
         if (response.data) {
-          alert('成功！')
+          alert('此人未通过审核！')
+          that.$router.push('/AfterLogin')
         }
       }).catch(function (error) {
         console.log(error)

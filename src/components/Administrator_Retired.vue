@@ -58,8 +58,9 @@ export default {
         }})
         .then(function (response) {
           console.log(response)
-          if (response.data.code === 0) {
+          if (response.data === 0) {
             alert('卸任成功！')
+            that.$router.push('/AfterLogin')
           }
         })
         .catch(function (error) {

@@ -61,6 +61,9 @@
               <el-tab-pane label="删除家庭成员" name="third">
                 <Delete style="width: 400%; margin-left: -150%"/>
               </el-tab-pane>
+              <el-tab-pane label="新增家庭成员" name="forth">
+                <add style="width: 400%; margin-left: -150%"/>
+              </el-tab-pane>
             </el-tabs>
           </div>
         <!--</el-col>-->
@@ -81,9 +84,10 @@ import Footer from './Footer.vue'
 import AdministratorNew from './Administrator_New.vue'
 import AdministratorRetired from './Administrator_Retired'
 import Delete from './Delete'
+import add from './add'
 export default {
   name: 'Administrator',
-  components: {TopTab, Footer, AdministratorNew, AdministratorRetired, Delete},
+  components: {TopTab, Footer, AdministratorNew, AdministratorRetired, Delete, add},
   data () {
     return {
       activeName: 'first'

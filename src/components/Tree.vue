@@ -42,7 +42,8 @@ export default {
       dTreeData: null,
       transform: null,
       margin: { top: 20, right: 90, bottom: 30, left: 90 },
-      value: null
+      value: null,
+      skey: this.GLOBAL.skey
     }
   },
   methods: {

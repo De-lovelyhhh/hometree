@@ -5,7 +5,7 @@ export default {
     return {
       nodata: ['111'],
       number: [1],
-      skey: '',
+      skey: '7d31699c-7546-4dcc-a4cd-9c7e6b3aef7c',
       permission: 2
     }
   },

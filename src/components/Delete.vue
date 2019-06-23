@@ -61,7 +61,7 @@ export default {
       this.$ajax.get(
         'http://47.106.250.33:7002/api/deleteByAdmin',
         {params: {
-          employee_id: that.ruleForm.id
+          delete_user_id: that.ruleForm.id
         },
         headers: {
           'skey': that.GLOBAL.skey,
@@ -69,8 +69,9 @@ export default {
         }})
         .then(function (response) {
           console.log(response)
-          if (response.data.code === 0) {
+          if (response.data === 0) {
             alert('删除成功！')
+            that.$router.push('/AfterLogin')
           }
         })
         .catch(function (error) {

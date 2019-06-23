@@ -116,11 +116,14 @@ export default {
           id_card: that.ruleForm.idNumber,
           verify_user_id: that.ruleForm.checkNumber,
           verify_user_relation: that.ruleForm.relation
-        }))
+        }
+        ))
         .then(function (response) {
           console.log(response)
-          if (response.data.code === 0) {
-            that.$router.push('/AfterLogin')
+          that.GLOBAL.skey = response.data.skey
+          if (response.data === 0) {
+            alert('注册成功！')
+            that.$router.push('/Login')
           }
         })
         .catch(function (error) {

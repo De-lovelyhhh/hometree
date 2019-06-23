@@ -9,19 +9,11 @@
         <el-input v-model="ruleForm.country" style="width: 200px"></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="sex">
-        <el-radio v-model="ruleForm.sex" label="1">女</el-radio>
-        <el-radio v-model="ruleForm.sex" label="2">男</el-radio>
+        <el-radio v-model="ruleForm.sex" label="0">女</el-radio>
+        <el-radio v-model="ruleForm.sex" label="1">男</el-radio>
       </el-form-item>
       <el-form-item label="出生地" prop="region">
         <el-input v-model="ruleForm.region" style="width: 200px"></el-input>
-      </el-form-item>
-      <el-form-item label="出生日期">
-        <el-col :span="5">
-          <el-form-item prop="birth">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.birth"
-                            style="width: 100%;"></el-date-picker>
-          </el-form-item>
-        </el-col>
       </el-form-item>
       <el-form-item label="联系方式" prop="contactWay" v-model="ruleForm.contactWay">
         <el-form-item label="微信号" style="margin-top: 30px">
@@ -33,10 +25,6 @@
         <el-form-item label="邮箱" style="margin-top: 20px">
           <el-input style="width: 300px" v-model="ruleForm.contactWay.Email"></el-input>
         </el-form-item>
-      </el-form-item>
-      <el-form-item label="是否婚配">
-        <el-radio v-model="ruleForm.married" label="false">否</el-radio>
-        <el-radio v-model="ruleForm.married" label="true">是</el-radio>
       </el-form-item>
       <el-form-item label="工作地点">
         <el-input v-model="ruleForm.workPlace" style="width: 200px"></el-input>
@@ -119,6 +107,37 @@ export default {
         }
       })
     },
+    show () {
+      let that = this
+      let data
+      this.$ajax.get(
+        'http://47.106.250.33:7002/api/showUserInfo',
+        {
+          headers: {
+            'skey': that.GLOBAL.skey
+          }
+        })
+        .then(function (response) {
+          console.log(response)
+          if (response.data) {
+            data = response.data
+            that.ruleForm.name = data.name
+            that.ruleForm.country = data.country
+            that.ruleForm.work = data.work
+            that.ruleForm.workPlace = data.work_location
+            that.ruleForm.contactWay.phoneNumber = data.tele
+            that.ruleForm.contactWay.weChat = data.qq
+            that.ruleForm.contactWay.Email = data.email
+            that.ruleForm.hobby = data.interest
+            that.ruleForm.sex = data.gender
+            that.ruleForm.region = data.home_location
+            that.ruleForm.birth = '2019-02-02'
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
     sub () {
       let that = this
       this.$ajax.post(
@@ -143,8 +162,9 @@ export default {
         }))
         .then(function (response) {
           console.log(response)
-          if (response.data.code === 0) {
+          if (response.data === '0') {
             alert('修改成功！')
+            that.$router.push('/AfterLogin')
           }
         })
         .catch(function (error) {
@@ -154,6 +174,9 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields()
     }
+  },
+  mounted () {
+    this.show()
   }
 }
 </script>

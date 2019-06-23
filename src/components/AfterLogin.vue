@@ -33,9 +33,13 @@
               <i class="el-icon-location"></i>
               <span slot="title"><router-link to="/Gonggao">写公告</router-link></span>
             </el-menu-item>
-            <el-menu-item index="5" v-if="permission === 2">
+            <el-menu-item index="1" v-if="permission === 2">
               <i class="el-icon-location"></i>
               <span slot="title"><router-link to="/Administrator">管理员</router-link></span>
+            </el-menu-item>
+            <el-menu-item index="2" >
+              <i class="el-icon-location"></i>
+              <span slot="title"><router-link to="/SignPage">登出</router-link></span>
             </el-menu-item>
           </el-menu>
           <router-view></router-view>

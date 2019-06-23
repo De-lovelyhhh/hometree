@@ -53,7 +53,8 @@ export default {
         }))
         .then(function (response) {
           console.log(response)
-          if (response.data.code === 0) {
+          if (response.data === 0) {
+            alert('发布成功！')
             that.$router.push('/AfterLogin')
           }
         })

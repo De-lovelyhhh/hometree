@@ -1,23 +1,16 @@
 <template>
   <div>
-    <!--滚动公告条-->
-    <div class="textBox" style="width:850px;border:1px solid #a3a3a3;border-radius: 30px">
-      <transition name="slide">
-        <p class="text" :key="text.id">{{text.val}}</p>
-      </transition>
-    </div>
-
-    <div>--</div>
     <!--公告墙-->
     <div class="annwall"
-         style="margin-top:20px;margin-bottom: 20px;width:1000px;height: 900px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">
+         style="overflow:scroll;margin-top:20px;margin-bottom: 20px;width:1000px;height: 1000px; border-radius: 20px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);background-color: #eeeeee">
       <p style="text-align: center;;font-family: 'PingFang SC';font-weight: 700;font-size:40px;">
         {{ '公告墙' }}
       </p>
-      <div style="text-align: center; font-family:'Hiragino Sans GB' ;font-size:15px;">
-        {{title}}
-        {{content}}
-        {{time}}
+      <div style="padding-left:5px;margin:0 auto;width:85%;">
+        <div style="text-align: left; font-family:'Hiragino Sans GB' ;font-size:28px;">{{title}}</div>
+        <div style="text-align: left; font-family:'Hiragino Sans GB' ;font-size:20px;margin-top: 20px">{{content}}</div>
+        <div style="margin-right:30px;text-align:right; font-size: 15px;margin-top: 45px">{{announcer_name}}</div>
+        <div style="margin-right:30px;text-align:right; font-size: 15px;margin-top: 5px">{{time}}</div>
       </div>
     </div>
     <el-footer height="90px" style="background-color: #eff4fa;">

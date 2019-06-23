@@ -9,7 +9,7 @@
               <div class="avatar">
                 <el-upload
                   class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  action=""
                   :show-file-list="false"
                   :on-success="handleAvatarSuccess"
                   :before-upload="beforeAvatarUpload">
@@ -19,9 +19,6 @@
               </div>
               <div class="user_name">
                 username
-              </div>
-              <div class="description">
-                编辑你的个人资料
               </div>
             </div>
           </el-col>
